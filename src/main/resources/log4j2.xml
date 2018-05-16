@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="300">  
+    <properties>  
+    	<!-- 注意！log4j2中使用catalina.base要用前缀！ -->
+        <property name="LOG_HOME">${sys:catalina.base}/logs</property>  
+        <property name="FILE_NAME">exportExcelLog</property>  
+    </properties>  
+    <Appenders>  
+        <Console name="Console" target="SYSTEM_OUT">  
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />  
+        </Console>  
+        <RollingRandomAccessFile name="LogFile"  
+            fileName="${LOG_HOME}/${FILE_NAME}.log"  
+            filePattern="${LOG_HOME}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log">  
+            <PatternLayout  
+                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />  
+            <Policies>  
+                <TimeBasedTriggeringPolicy interval="1" />  
+                <SizeBasedTriggeringPolicy size="100 MB" />  
+            </Policies>  
+        </RollingRandomAccessFile>  
+    </Appenders>  
+  
+    <Loggers>  
+        <Root level="debug">  
+            <AppenderRef ref="Console" /> 
+            <!-- <AppenderRef ref="LogFile" />  -->
+        </Root>  
+    </Loggers>  
+</Configuration>  
